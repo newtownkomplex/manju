@@ -18,13 +18,13 @@
 <script>
 const screens={intro:document.getElementById('intro'),black:document.getElementById('startBlack'),wake:document.getElementById('wake'),game:document.getElementById('game'),success:document.getElementById('success'),fail:document.getElementById('fail')};
 const items=document.getElementById('items'),nightEl=document.getElementById('night'),scoreEl=document.getElementById('score'),resultRice=document.getElementById('resultRice'),recordEl=document.getElementById('record');
-let night=1,totalRice=0,rice=0,candles=0,timerStart=0,transitionTimer=null,highest=Number(localStorage.getItem('manjuRecord')||0),failed=false;
+let night=1,totalRice=0,rice=0,candles=0,timerStart=0,transitionTimer=null,highest=Number(localStorage.getItem('manjuRecord')||0),failed=false,roundCount=0;
 function show(name){Object.values(screens).forEach(s=>s.classList.add('hidden'));screens[name].classList.remove('hidden')}
 function updateRecord(){recordEl.textContent=`きろく:${highest}こ`}
 function resetAll(){night=1;totalRice=0;updateCounters()}
 function updateCounters(){nightEl.textContent=night===1?'一夜目':`${night}夜目`;scoreEl.textContent=totalRice}
 function begin(){failed=false;show('black');clearTimeout(transitionTimer);transitionTimer=setTimeout(()=>{show('wake');transitionTimer=setTimeout(startRound,2000+Math.random()*2000)},2000)}
-function startRound(){if(failed)return;rice=Math.floor(Math.random()*4);candles=1+Math.floor(Math.random()*2);items.innerHTML='';for(let i=0;i<rice;i++)addItem('🍡','rice');for(let i=0;i<candles;i++)addItem('🕯️','candle');updateCounters();timerStart=performance.now();show('game')}
+function startRound(){if(failed)return;roundCount++;rice=Math.floor(Math.random()*4);candles=1+Math.floor(Math.random()*2);items.innerHTML='';for(let i=0;i<rice;i++)addItem('🍡','rice');for(let i=0;i<candles;i++)addItem('🕯️','candle');if(roundCount>=5){const interval=5+Math.floor(Math.random()*6);if(roundCount%interval===0)addItem('🐭','mouse')}updateCounters();timerStart=performance.now();show('game')}
 function addItem(icon,type){const el=document.createElement('div');el.className='item '+type;el.dataset.type=type;el.textContent=icon;items.appendChild(el)}
 function triggerFail(){if(failed)return;failed=true;clearTimeout(transitionTimer);timerStart=0;resetAll();show('fail')}
 function eat(){if(failed)return;const el=items.querySelector('[data-type="rice"]');if(!el){triggerFail();return}el.remove();rice--;totalRice++;scoreEl.textContent=totalRice}
