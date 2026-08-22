@@ -29,8 +29,9 @@ function startRound(){if(failed)return;roundCount++;timeLimit=getTimeLimit();ric
 function updateTimer(now){if(failed||!timerStart)return;const elapsed=(now-timerStart)/1000;timerEl.textContent=elapsed.toFixed(2);if(elapsed>=timeLimit){triggerFail();return}timerFrame=requestAnimationFrame(updateTimer)}
 function addItem(icon,type){const el=document.createElement('div');el.className='item '+type;el.dataset.type=type;el.textContent=icon;items.appendChild(el)}
 function triggerFail(){if(failed)return;failed=true;clearTimeout(transitionTimer);cancelAnimationFrame(timerFrame);timerFrame=null;timerStart=0;failCount.textContent=`たべた：${totalRice}こ`;failNight.textContent=night===1?'一夜目':`${night}夜目`;resetAll();show('fail')}
-function eat(){if(failed)return;const el=items.querySelector('[data-type="rice"]');if(!el){triggerFail();return}el.remove();rice--;totalRice++;scoreEl.textContent=totalRice}
-function extinguish(){if(failed)return;const el=items.querySelector('[data-type="candle"]');if(!el){triggerFail();return}el.remove();candles--;if(candles===0)finish()}
+function eat(){if(failed)return;const el=items.querySelector('[data-type="rice"]');if(!el){triggerFail();return}el.remove();rice--;totalRice++;scoreEl.textContent=totalRice;checkClear()}
+function extinguish(){if(failed)return;const el=items.querySelector('[data-type="candle"]');if(!el){triggerFail();return}el.remove();candles--;checkClear()}
+function checkClear(){if(rice===0&&candles===0)finish()}
 function finish(){if(failed)return;const elapsed=(performance.now()-timerStart)/1000;cancelAnimationFrame(timerFrame);timerFrame=null;timerStart=0;if(elapsed>timeLimit){triggerFail();return}if(totalRice>highest){highest=totalRice;localStorage.setItem('manjuRecord',highest);updateRecord()}resultRice.textContent=totalRice;successNight.textContent=night===1?'一夜目':`${night}夜目`;clearTime.textContent=`${elapsed.toFixed(2)}秒`;show('success')}
 function retry(){night++;updateCounters();begin()}
 function failRestart(){resetAll();show('intro');updateRecord()}
