@@ -18,7 +18,8 @@
 <script>
 const screens={intro:document.getElementById('intro'),black:document.getElementById('startBlack'),wake:document.getElementById('wake'),game:document.getElementById('game'),success:document.getElementById('success'),fail:document.getElementById('fail')};
 const items=document.getElementById('items'),nightEl=document.getElementById('night'),scoreEl=document.getElementById('score'),timerEl=document.getElementById('timer'),resultRice=document.getElementById('resultRice'),recordEl=document.getElementById('record'),failCount=document.getElementById('failCount'),successNight=document.getElementById('successNight'),failNight=document.getElementById('failNight'),clearTime=document.getElementById('clearTime');
-let night=1,totalRice=0,rice=0,candles=0,timerStart=0,timeLimit=2,transitionTimer=null,timerFrame=null,highest=Number(localStorage.getItem('manjuRecord')||0),failed=false,roundCount=0;
+let night=1,totalRice=0,rice=0,candles=0,timerStart=0,timeLimit=2,transitionTimer=null,timerFrame=null,highest=0,failed=false,roundCount=0;
+localStorage.removeItem('manjuRecord');
 function show(name){Object.values(screens).forEach(s=>s.classList.add('hidden'));screens[name].classList.remove('hidden')}
 function updateRecord(){recordEl.textContent=`きろく:${highest}こ`}
 function resetAll(){night=1;totalRice=0;timeLimit=2;updateCounters()}
