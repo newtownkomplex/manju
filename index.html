@@ -5,41 +5,36 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <title>ぼたもち食べるなり</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}body{background:#fff;color:#111}.screen{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative}.hidden{display:none!important}.intro{flex-direction:column;text-align:center;gap:28px;padding:24px}.title{font-size:clamp(32px,9vw,56px);font-weight:700;letter-spacing:.08em}.story{font-size:clamp(17px,4.8vw,24px);line-height:2;white-space:pre-line}.start{margin-top:8px;border:2px solid #111;background:#111;color:#fff;padding:14px 42px;font-size:20px;border-radius:8px}.black{background:#000;color:#fff;font-size:clamp(42px,12vw,72px);font-weight:700}.wake{background:#fff;font-size:clamp(40px,11vw,68px);font-weight:700}.game{background:#fff;align-items:stretch;justify-content:stretch}.night,.score{position:absolute;top:18px;font-weight:700;font-size:20px;z-index:5}.night{left:18px}.score{right:18px}.items{position:absolute;inset:70px 20px 130px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}.item{font-size:clamp(52px,15vw,88px);line-height:1;user-select:none}.controls{position:absolute;bottom:max(22px,env(safe-area-inset-bottom));left:0;right:0;display:flex;justify-content:center;gap:14px;padding:0 18px}.controls button,.result button{min-width:120px;padding:15px 24px;border:2px solid #111;background:#fff;color:#111;border-radius:8px;font-size:20px;font-weight:700}.result{flex-direction:column;gap:28px}.result-title{font-size:clamp(48px,14vw,78px);font-weight:700}.result button{background:#111;color:#fff}.sub{font-size:18px}.success .result-title{letter-spacing:.08em}.fail .result-title{letter-spacing:.04em}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{background:#fff;color:#000;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}.screen{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative}.hidden{display:none!important}
+.intro{flex-direction:column;text-align:center;padding:32px}.title{font-size:clamp(34px,10vw,60px);font-weight:800;letter-spacing:.08em;margin-bottom:38px}.story{font-size:clamp(16px,4.5vw,22px);line-height:2.05;letter-spacing:.06em}.start{margin-top:44px;padding:14px 46px;border:1px solid #000;background:#000;color:#fff;font:inherit;font-size:18px;letter-spacing:.08em;cursor:pointer}
+.black{background:#000;color:#fff;font-size:clamp(44px,13vw,78px);font-weight:800;letter-spacing:.08em}.wake{background:#fff;color:#000;font-size:clamp(42px,12vw,72px);font-weight:800;letter-spacing:.08em}
+.game{background:#fff}.night,.score{position:absolute;top:20px;font-size:18px;font-weight:700;letter-spacing:.06em}.night{left:20px}.score{right:20px}.items{position:absolute;inset:80px 24px 130px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}.item{font-size:clamp(48px,14vw,82px);line-height:1;filter:grayscale(1);user-select:none}.controls{position:absolute;left:20px;right:20px;bottom:max(24px,env(safe-area-inset-bottom));display:flex;gap:12px}.controls button{flex:1;height:58px;border:1px solid #000;background:#fff;color:#000;font:inherit;font-size:20px;font-weight:700;letter-spacing:.08em;cursor:pointer}.controls button:active,.start:active,.result button:active{background:#000;color:#fff}
+.result{flex-direction:column;text-align:center}.result-title{font-size:clamp(54px,16vw,88px);font-weight:800;letter-spacing:.08em}.sub{margin-top:24px;font-size:16px;letter-spacing:.06em}.result button{margin-top:42px;padding:15px 48px;border:1px solid #000;background:#000;color:#fff;font:inherit;font-size:18px;font-weight:700;letter-spacing:.08em;cursor:pointer}.fail .result-title{letter-spacing:.02em}
 </style>
 </head>
 <body>
-<section id="intro" class="screen intro">
-  <div class="title">ぼたもち食べるなり</div>
-  <div class="story">むかしむかし<br>たいそう食い意地の<br>張る坊主あり<br>師匠にバレずに<br>ぼたもちを食え！</div>
-  <button class="start" id="startBtn">はじめる</button>
-</section>
+<section id="intro" class="screen intro"><div class="title">ぼたもち食べるなり</div><div class="story">むかしむかし<br>たいそう食い意地の<br>張る坊主あり<br>師匠にバレずに<br>ぼたもちを食え！</div><button class="start" id="startBtn">はじめる</button></section>
 <section id="startBlack" class="screen black hidden">はじめ！</section>
 <section id="wake" class="screen wake hidden">寝たか？</section>
-<section id="game" class="screen game hidden">
-  <div id="night" class="night">一夜目</div><div id="score" class="score">0</div>
-  <div id="items" class="items"></div>
-  <div class="controls"><button id="riceBtn">食う</button><button id="candleBtn">消す</button></div>
-</section>
+<section id="game" class="screen game hidden"><div id="night" class="night">一夜目</div><div id="score" class="score">0</div><div id="items" class="items"></div><div class="controls"><button id="riceBtn">食う</button><button id="candleBtn">消す</button></div></section>
 <section id="success" class="screen result success hidden"><div class="result-title">わろし</div><div class="sub">食べたぼたもち：<span id="resultRice">0</span>個</div><button id="againBtn">美味なり</button></section>
 <section id="fail" class="screen result fail hidden"><div class="result-title">天誅！！</div><button id="sleepBtn">寝る</button></section>
 <script>
 const screens={intro:document.getElementById('intro'),black:document.getElementById('startBlack'),wake:document.getElementById('wake'),game:document.getElementById('game'),success:document.getElementById('success'),fail:document.getElementById('fail')};
 const items=document.getElementById('items'),nightEl=document.getElementById('night'),scoreEl=document.getElementById('score'),resultRice=document.getElementById('resultRice');
-let night=1,totalRice=0,rice=0,candles=0,timerStart=0,timer=null,transitionTimer=null;
+let night=1,totalRice=0,rice=0,candles=0,timerStart=0,transitionTimer=null;
 function show(name){Object.values(screens).forEach(s=>s.classList.add('hidden'));screens[name].classList.remove('hidden')}
 function resetAll(){night=1;totalRice=0;updateCounters()}
 function updateCounters(){nightEl.textContent=night===1?'一夜目':`${night}夜目`;scoreEl.textContent=totalRice}
 function begin(){show('black');clearTimeout(transitionTimer);transitionTimer=setTimeout(()=>{show('wake');transitionTimer=setTimeout(startRound,2000+Math.random()*2000)},250)}
-function startRound(){rice=Math.floor(Math.random()*4);candles=1+Math.floor(Math.random()*2);items.innerHTML='';for(let i=0;i<rice;i++)addItem('🍡','rice');for(let i=0;i<candles;i++)addItem('🕯️','candle');updateCounters();timerStart=performance.now();}
+function startRound(){rice=Math.floor(Math.random()*4);candles=1+Math.floor(Math.random()*2);items.innerHTML='';for(let i=0;i<rice;i++)addItem('🍡','rice');for(let i=0;i<candles;i++)addItem('🕯️','candle');updateCounters();timerStart=performance.now();show('game')}
 function addItem(icon,type){const el=document.createElement('div');el.className='item';el.dataset.type=type;el.textContent=icon;items.appendChild(el)}
 function eat(){const el=items.querySelector('[data-type="rice"]');if(!el)return;el.remove();rice--;totalRice++;scoreEl.textContent=totalRice}
 function extinguish(){const el=items.querySelector('[data-type="candle"]');if(!el)return;el.remove();candles--;if(candles===0)finish()}
 function finish(){const elapsed=(performance.now()-timerStart)/1000;timerStart=0;if(elapsed<=2){resultRice.textContent=totalRice;show('success')}else{resetAll();show('fail')}}
 function retry(){night++;updateCounters();begin()}
 function failRestart(){resetAll();show('intro')}
-document.getElementById('startBtn').onclick=begin;document.getElementById('riceBtn').onclick=eat;document.getElementById('candleBtn').onclick=extinguish;document.getElementById('againBtn').onclick=retry;document.getElementById('sleepBtn').onclick=failRestart;
-updateCounters();
+document.getElementById('startBtn').onclick=begin;document.getElementById('riceBtn').onclick=eat;document.getElementById('candleBtn').onclick=extinguish;document.getElementById('againBtn').onclick=retry;document.getElementById('sleepBtn').onclick=failRestart;updateCounters();
 </script>
 </body>
 </html>
